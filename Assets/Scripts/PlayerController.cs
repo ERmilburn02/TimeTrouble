@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public Transform isGroundedChecker;
     public float checkGroundRadius;
     public LayerMask groundLayer;
+    public float rememberGroundedFor;
+    float lastTimeGrounded;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || Time.time - lastTimeGrounded <= rememberGroundedFor)) rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
     void CheckIfGrounded()
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
         if (collider != null)
         {
             isGrounded = true;
+            lastTimeGrounded = Time.time;
         }
         else
         {
