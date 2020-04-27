@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Player.Health = 3;
     }
 
     // Update is called once per frame
@@ -25,6 +26,16 @@ public class PlayerController : MonoBehaviour
         Move();
         Jump();
         CheckIfGrounded();
+        CheckHealth();
+    }
+
+    void CheckHealth()
+    {
+        if (Player.Health == 0)
+        {
+            Destroy(this.gameObject);
+            Debug.LogError("DED");
+        }
     }
 
     void Move()

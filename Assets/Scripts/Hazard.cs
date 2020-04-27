@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectable : MonoBehaviour
+public class Hazard : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Player.Items += 1;
-        Destroy(this.gameObject);
+        Player.Health -= 1;
+        Debug.Log("OUCH!");
+        Debug.Log("Player Health " + Player.Health);
     }
 }
