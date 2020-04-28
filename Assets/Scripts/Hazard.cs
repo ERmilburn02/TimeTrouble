@@ -7,7 +7,5 @@ public class Hazard : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         Player.Health -= 1;
-        Debug.Log("OUCH!");
-        Debug.Log("Player Health " + Player.Health);
     }
 }

@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
         if (Player.Health == 0)
         {
             Destroy(this.gameObject);
-            Debug.LogError("DED");
         }
     }
 
