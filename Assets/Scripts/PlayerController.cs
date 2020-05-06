@@ -65,4 +65,13 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
+
+    void CheckCollectables()
+    {
+        if (Player.Items == 5)
+        {
+            Debug.Log("ALL ITEMS COLLECTED!");
+            Player.Items = 0;
+        }
+    }
 }
