@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("ALL ITEMS COLLECTED!");
             Player.Items = 0;
+            // TO DO: END LEVEL CODE
         }
     }
 }
