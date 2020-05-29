@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public float rememberGroundedFor;
     float lastTimeGrounded;
+    public GameObject endDemoUI;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
         Jump();
         CheckIfGrounded();
         CheckHealth();
+        CheckCollectables();
     }
 
     void CheckHealth()
@@ -73,6 +76,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("ALL ITEMS COLLECTED!");
             Player.Items = 0;
             // TO DO: END LEVEL CODE
+            endDemoUI.SetActive(true);
+            player.GetComponent<PlayerController>().enabled = false;
         }
     }
 }
