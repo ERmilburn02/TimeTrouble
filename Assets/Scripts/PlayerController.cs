@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
     float lastTimeGrounded;
     public GameObject endDemoUI;
     public GameObject player;
+    public AudioSource jumpsfx;
+    public AudioSource winsfx;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +39,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Player.Health == 0)
         {
-            Destroy(this.gameObject);
+            // Destroy(this.gameObject);
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+            this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            this.enabled = false;
         }
     }
 
@@ -51,7 +59,11 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || Time.time - lastTimeGrounded <= rememberGroundedFor)) rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        if (Convert.ToBoolean(Input.GetAxis("Jump")) && (isGrounded || Time.time - lastTimeGrounded <= rememberGroundedFor))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            if (!jumpsfx.isPlaying) jumpsfx.Play();
+        }
     }
 
     void CheckIfGrounded()
@@ -78,6 +90,8 @@ public class PlayerController : MonoBehaviour
             // TO DO: END LEVEL CODE
             endDemoUI.SetActive(true);
             player.GetComponent<PlayerController>().enabled = false;
+            winsfx.Play();
+
         }
     }
 }
