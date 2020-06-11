@@ -18,10 +18,12 @@ public class PlayerController : MonoBehaviour
     public GameObject player;
     public AudioSource jumpsfx;
     public AudioSource winsfx;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         Player.Health = 3;
     }
 
@@ -52,6 +54,14 @@ public class PlayerController : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
 
+        if (x != 0)
+        {
+            animator.SetBool("IsMoving", true);
+        } else
+        {
+            animator.SetBool("IsMoving", false);
+        }
+
         float moveBy = x * speed;
 
         rb.velocity = new Vector2(moveBy, rb.velocity.y);
@@ -61,9 +71,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Convert.ToBoolean(Input.GetAxis("Jump")) && (isGrounded || Time.time - lastTimeGrounded <= rememberGroundedFor))
         {
+            animator.SetBool("IsJumping", true);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             if (!jumpsfx.isPlaying) jumpsfx.Play();
-        }
+        } else animator.SetBool("IsJumping", false);
     }
 
     void CheckIfGrounded()
@@ -78,6 +89,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             isGrounded = false;
+            animator.SetBool("IsJumping", true);
         }
     }
 
