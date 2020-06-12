@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource jumpsfx;
     public AudioSource winsfx;
     private Animator animator;
+    public GameObject deathUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
             this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
             this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
             this.enabled = false;
+            deathUI.SetActive(true);
         }
     }
 
@@ -105,5 +108,12 @@ public class PlayerController : MonoBehaviour
             winsfx.Play();
 
         }
+    }
+
+    public void restart()
+    {
+        Player.Health = 3;
+        Player.Items = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
