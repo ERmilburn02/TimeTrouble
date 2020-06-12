@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.Experimental.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class PlayerController : MonoBehaviour
     public AudioSource winsfx;
     private Animator animator;
     public GameObject deathUI;
+    private bool pauseKeyPressed;
+    public GameObject pauseUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +41,7 @@ public class PlayerController : MonoBehaviour
         CheckIfGrounded();
         CheckHealth();
         CheckCollectables();
+        checkForPause();
     }
 
     void CheckHealth()
@@ -115,5 +120,41 @@ public class PlayerController : MonoBehaviour
         Player.Health = 3;
         Player.Items = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void checkForPause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!Player.Paused)
+            {
+                if (!pauseKeyPressed)
+                {
+                    Time.timeScale = 0;
+                    pauseUI.SetActive(true);
+                    Player.Paused = true;
+                    pauseKeyPressed = true;
+                }
+            } else if (Player.Paused)
+            {
+                if (!pauseKeyPressed)
+                {
+                    Time.timeScale = 1;
+                    pauseUI.SetActive(false);
+                    Player.Paused = false;
+                    pauseKeyPressed = true;
+                }
+            }
+        } else
+        {
+            pauseKeyPressed = false;
+        }
+    }
+
+    public void unpause()
+    {
+        Time.timeScale = 1;
+        pauseUI.SetActive(false);
+        Player.Paused = false;
     }
 }

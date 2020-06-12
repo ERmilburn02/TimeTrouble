@@ -713,6 +713,7 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 1
     UNet: 1
   luminIcon:
     m_Name: 
@@ -733,10 +734,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: f8bcb24d-acdf-43c3-b98f-7d1c3b41f887
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Time Trouble
+  organizationId: ermilburn02
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
